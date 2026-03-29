@@ -1,0 +1,1043 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luis Petroleum Services - Premier Oil & Gas Solutions in Kenya</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #0a192f;
+            --primary-blue: #1e3a5f;
+            --accent-gold: #d4af37;
+            --accent-orange: #e67e22;
+            --text-light: #ecf0f1;
+            --text-dark: #2c3e50;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+        
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: linear-gradient(to bottom, rgba(10, 25, 47, 0.95), rgba(10, 25, 47, 0.8));
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled {
+            padding: 0.5rem 2rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            margin: 0 1.2rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--accent-gold);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .cta-button {
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-orange));
+            color: var(--primary-dark) !important;
+            padding: 0.7rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 700 !important;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
+        }
+        
+        /* Hero Section */
+        #hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        #hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(10, 25, 47, 0.7), rgba(30, 58, 95, 0.5));
+            z-index: 2;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            max-width: 900px;
+            padding: 0 2rem;
+        }
+        
+        .hero-title {
+            font-size: 4.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--text-light), var(--accent-gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 30px rgba(212, 175, 55, 0.3);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+        
+        /* Sections */
+        section {
+            padding: 6rem 2rem;
+            position: relative;
+        }
+        
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            color: var(--accent-gold);
+            font-size: 1.1rem;
+            margin-bottom: 4rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        
+        /* About */
+        #about {
+            background: linear-gradient(to bottom, var(--primary-dark), var(--primary-blue));
+        }
+        
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .about-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-gold), var(--accent-orange));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+        
+        .about-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .about-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .about-icon {
+            font-size: 3rem;
+            color: var(--accent-gold);
+            margin-bottom: 1.5rem;
+        }
+        
+        .about-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+        
+        .about-card p {
+            color: rgba(236, 240, 241, 0.8);
+            line-height: 1.8;
+        }
+        
+        /* Services */
+        #services {
+            background: var(--primary-dark);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .service-card {
+            background: linear-gradient(135deg, rgba(30, 58, 95, 0.3), rgba(10, 25, 47, 0.8));
+            border-radius: 20px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .service-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            transform: scale(0);
+            transition: transform 0.6s ease;
+        }
+        
+        .service-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        }
+        
+        .service-card:hover::after {
+            transform: scale(1);
+        }
+        
+        .service-icon {
+            font-size: 3.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+        
+        .service-card:hover .service-icon {
+            transform: translateY(-5px);
+        }
+        
+        /* Projects */
+        #projects {
+            background: linear-gradient(to bottom, var(--primary-dark), var(--primary-blue));
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .project-card {
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            height: 300px;
+            cursor: pointer;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        }
+        
+        .project-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(10, 25, 47, 0.95), transparent);
+            transform: translateY(60%);
+            transition: transform 0.4s ease;
+        }
+        
+        .project-card:hover .project-overlay {
+            transform: translateY(0);
+        }
+        
+        .project-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+        }
+        
+        .project-desc {
+            color: rgba(236, 240, 241, 0.8);
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.4s ease 0.1s;
+        }
+        
+        .project-card:hover .project-desc {
+            opacity: 1;
+        }
+        
+        /* Testimonials */
+        #testimonials {
+            background: var(--primary-dark);
+            overflow: hidden;
+        }
+        
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            position: relative;
+        }
+        
+        .testimonial-text {
+            font-size: 1.3rem;
+            font-style: italic;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: var(--text-light);
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--accent-gold);
+        }
+        
+        .testimonial-role {
+            color: rgba(236, 240, 241, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        /* Contact */
+        #contact {
+            background: linear-gradient(to bottom, var(--primary-blue), var(--primary-dark));
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-item:hover {
+            background: rgba(212, 175, 55, 0.1);
+            transform: translateX(5px);
+        }
+        
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+        }
+        
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .form-input {
+            padding: 1.2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: var(--text-light);
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .form-input::placeholder {
+            color: rgba(236, 240, 241, 0.5);
+        }
+        
+        textarea.form-input {
+            resize: vertical;
+            min-height: 150px;
+        }
+        
+        /* Footer */
+        .footer {
+            background: linear-gradient(to top, var(--primary-dark), rgba(10, 25, 47, 0.95));
+            padding: 4rem 2rem 2rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+        
+        .footer-section h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-gold);
+        }
+        
+        .footer-section p, .footer-section a {
+            color: rgba(236, 240, 241, 0.7);
+            line-height: 1.8;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section a:hover {
+            color: var(--accent-gold);
+        }
+        
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+            color: rgba(236, 240, 241, 0.5);
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+        
+        .mobile-menu-btn span {
+            width: 25px;
+            height: 2px;
+            background: var(--text-light);
+            transition: all 0.3s ease;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: var(--primary-dark);
+                flex-direction: column;
+                padding: 6rem 2rem;
+                gap: 2rem;
+                transition: right 0.4s ease;
+                z-index: 1001;
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .mobile-menu-btn {
+                display: flex;
+                z-index: 1002;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.8s ease;
+        }
+        
+        /* Scroll to top */
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .scroll-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .scroll-top:hover {
+            background: var(--accent-orange);
+            transform: translateY(-5px);
+        }
+        
+        /* Gold gradient text */
+        .gold-text {
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-orange));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="flex justify-between items-center max-w-7xl mx-auto">
+            <div class="logo text-xl font-bold tracking-wider">
+                <span class="gold-text">LUIS</span> PETROLEUM
+            </div>
+            
+            <div class="nav-links hidden md:flex items-center">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#projects">Projects</a>
+                <a href="#testimonials">Testimonials</a>
+                <a href="#contact">Contact</a>
+                <a href="#contact" class="cta-button">Get Quote</a>
+            </div>
+            
+            <div class="mobile-menu-btn md:hidden" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Mobile Menu -->
+    <div class="nav-links fixed" id="mobileMenu">
+        <a href="#home" onclick="closeMobileMenu()">Home</a>
+        <a href="#about" onclick="closeMobileMenu()">About</a>
+        <a href="#services" onclick="closeMobileMenu()">Services</a>
+        <a href="#projects" onclick="closeMobileMenu()">Projects</a>
+        <a href="#testimonials" onclick="closeMobileMenu()">Testimonials</a>
+        <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+        <a href="#contact" class="cta-button" onclick="closeMobileMenu()">Get Quote</a>
+    </div>
+    
+    <!-- Hero Section -->
+    <section id="hero">
+        <canvas id="hero-canvas"></canvas>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title fade-in">Premium Petroleum Solutions<br>Across East Africa</h1>
+            <p class="hero-subtitle fade-in">Pioneering Excellence in Oil & Gas Services Since 2005</p>
+            <div class="flex justify-center gap-4 flex-wrap fade-in">
+                <a href="#services" class="cta-button">Explore Services</a>
+                <a href="#contact" class="cta-button" style="background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark)); border: 2px solid var(--accent-gold); color: var(--accent-gold) !important;">Contact Us</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title fade-in">About <span class="gold-text">Us</span></h2>
+        <p class="section-subtitle fade-in">Excellence in Energy Services</p>
+        
+        <div class="about-grid">
+            <div class="about-card fade-in">
+                <div class="about-icon">⬡</div>
+                <h3>Industry Leaders</h3>
+                <p>Luis Petroleum Services has established itself as a leading provider of comprehensive oil and gas solutions across Kenya and East Africa, delivering exceptional results for over 18 years.</p>
+            </div>
+            
+            <div class="about-card fade-in">
+                <div class="about-icon">◈</div>
+                <h3>Certified Excellence</h3>
+                <p>Our operations are backed by ISO certifications and industry accreditations, ensuring the highest standards of quality, safety, and environmental responsibility in all our projects.</p>
+            </div>
+            
+            <div class="about-card fade-in">
+                <div class="about-icon">◉</div>
+                <h3>Client-Centric Approach</h3>
+                <p>We prioritize our clients' needs with tailored solutions, transparent communication, and unwavering commitment to project success and sustainable partnerships.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Services Section -->
+    <section id="services">
+        <h2 class="section-title fade-in">Our <span class="gold-text">Services</span></h2>
+        <p class="section-subtitle fade-in">Comprehensive Oil & Gas Solutions</p>
+        
+        <div class="services-grid">
+            <div class="service-card fade-in">
+                <div class="service-icon">⚡</div>
+                <h3>Oil & Gas Exploration</h3>
+                <p>Advanced seismic surveys and geological analysis for optimal resource identification. We employ cutting-edge technology to map subsurface formations with precision.</p>
+            </div>
+            
+            <div class="service-card fade-in">
+                <div class="service-icon">⚙️</div>
+                <h3>Refinery Operations</h3>
+                <p>Complete refinery design, construction, and operation services. From initial planning to full-scale production, we deliver efficient and sustainable refining solutions.</p>
+            </div>
+            
+            <div class="service-card fade-in">
+                <div class="service-icon">🛣️</div>
+                <h3>Pipeline Infrastructure</h3>
+                <p>Design, construction, and maintenance of oil and gas pipelines across challenging terrains. Our infrastructure projects set industry benchmarks for durability and efficiency.</p>
+            </div>
+            
+            <div class="service-card fade-in">
+                <div class="service-icon">🛡️</div>
+                <h3>Safety & Compliance</h3>
+                <p>Comprehensive safety protocols, environmental compliance, and risk assessment services. We ensure all operations meet international safety standards.</p>
+            </div>
+            
+            <div class="service-card fade-in">
+                <div class="service-icon">🔧</div>
+                <h3>Maintenance & Support</h3>
+                <p>24/7 equipment maintenance, technical support, and emergency response services. Our team ensures continuous operation with minimal downtime.</p>
+            </div>
+            
+            <div class="service-card fade-in">
+                <div class="service-icon">🌍</div>
+                <h3>Environmental Services</h3>
+                <p>Sustainable practices and environmental impact assessments. We help clients minimize ecological footprint while maximizing operational efficiency.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2 class="section-title fade-in">Featured <span class="gold-text">Projects</span></h2>
+        <p class="section-subtitle fade-in">Delivering Excellence Across East Africa</p>
+        
+        <div class="projects-grid">
+            <div class="project-card fade-in" style="background: linear-gradient(135deg, #2c3e50, #34495e);">
+                <div class="project-overlay">
+                    <h3 class="project-title">Mombasa Refinery Upgrade</h3>
+                    <p class="project-desc">Complete modernization of coastal refinery infrastructure, increasing capacity by 40% while implementing advanced environmental controls.</p>
+                </div>
+            </div>
+            
+            <div class="project-card fade-in" style="background: linear-gradient(135deg, #1e3a5f, #2c5282);">
+                <div class="project-overlay">
+                    <h3 class="project-title">Nairobi Fuel Distribution</h3>
+                    <p class="project-desc">Development of state-of-the-art fuel distribution network serving the greater Nairobi metropolitan area and surrounding counties.</p>
+                </div>
+            </div>
+            
+            <div class="project-card fade-in" style="background: linear-gradient(135deg, #2d3748, #4a5568);">
+                <div class="project-overlay">
+                    <h3 class="project-title">Kisumu Pipeline Network</h3>
+                    <p class="project-desc">Construction of 250km pipeline network connecting key production sites to distribution centers across Western Kenya.</p>
+                </div>
+            </div>
+            
+            <div class="project-card fade-in" style="background: linear-gradient(135deg, #1a202c, #2d3748);">
+                <div class="project-overlay">
+                    <h3 class="project-title">Nakuru Storage Facility</h3>
+                    <p class="project-desc">Development of strategic fuel storage facilities with capacity for 50 million liters, enhancing regional energy security.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials Section -->
+    <section id="testimonials">
+        <h2 class="section-title fade-in">Client <span class="gold-text">Testimonials</span></h2>
+        <p class="section-subtitle fade-in">What Our Clients Say</p>
+        
+        <div class="testimonial-slider">
+            <div class="testimonial-card fade-in">
+                <p class="testimonial-text">"Luis Petroleum Services delivered our refinery expansion project ahead of schedule and under budget. Their technical expertise and commitment to quality are unmatched in the region."</p>
+                <div class="testimonial-author">James Mwangi</div>
+                <div class="testimonial-role">Director, East African Energy Corp</div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="section-title fade-in">Get in <span class="gold-text">Touch</span></h2>
+        <p class="section-subtitle fade-in">Contact Us for Your Petroleum Needs</p>
+        
+        <div class="contact-container">
+            <div class="contact-info fade-in">
+                <div class="contact-item">
+                    <span class="contact-icon">📍</span>
+                    <div>
+                        <h4>Head Office</h4>
+                        <p>Industrial Area, Nairobi, Kenya</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <span class="contact-icon">📞</span>
+                    <div>
+                        <h4>Phone</h4>
+                        <p>+254 20 123 4567</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <span class="contact-icon">✉️</span>
+                    <div>
+                        <h4>Email</h4>
+                        <p>info@luispetroleum.co.ke</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <span class="contact-icon">🌐</span>
+                    <div>
+                        <h4>Website</h4>
+                        <p>www.luispetroleum.co.ke</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-form fade-in">
+                <input type="text" class="form-input" placeholder="Your Name" required>
+                <input type="email" class="form-input" placeholder="Your Email" required>
+                <input type="text" class="form-input" placeholder="Subject">
+                <textarea class="form-input" placeholder="Your Message" required></textarea>
+                <button type="submit" class="cta-button">Send Message</button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Luis Petroleum Services</h4>
+                <p>Pioneering excellence in oil and gas solutions across Kenya and East Africa since 2005.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <p><a href="#about">About Us</a></p>
+                <p><a href="#services">Our Services</a></p>
+                <p><a href="#projects">Projects</a></p>
+                <p><a href="#contact">Contact</a></p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Services</h4>
+                <p><a href="#">Exploration</a></p>
+                <p><a href="#">Refinery Operations</a></p>
+                <p><a href="#">Pipeline Infrastructure</a></p>
+                <p><a href="#">Safety & Compliance</a></p>
+            petroleum Services. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- Scroll to Top -->
+    <div class="scroll-top" onclick="scrollToTop()">↑</div>
+    
+    <script>
+        // Three.js Hero Animation
+        const canvas = document.getElementById('hero-canvas');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        
+        // Create particles
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particleCount = 1500;
+        const positions = new Float32Array(particleCount * 3);
+        
+        for (let i = 0; i < particleCount * 3; i++) {
+            positions[i] = (Math.random() - 0.5) * 15;
+        }
+        
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.05,
+            color: 0xd4af37,
+            transparent: true,
+            opacity: 0.8
+        });
+        
+        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particlesMesh);
+        
+        camera.position.z = 5;
+        
+        let mouseX = 0;
+        let mouseY = 0;
+        
+        document.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+            mouseY = (e.clientY / window.innerHeight) * 2 - 1;
+        });
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            particlesMesh.rotation.y += 0.001;
+            particlesMesh.rotation.x += 0.0005;
+            
+            camera.position.x += (mouseX * 0.5 - camera.position.x) * 0.05;
+            camera.position.y += (mouseY * 0.5 - camera.position.y) * 0.05;
+            camera.lookAt(scene.position);
+            
+            renderer.render(scene, camera);
+        }
+        
+        animate();
+        
+        // Resize handler
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+        
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            
+            // Scroll to top visibility
+            const scrollTop = document.querySelector('.scroll-top');
+            if (window.scrollY > 500) {
+                scrollTop.classList.add('visible');
+            } else {
+                scrollTop.classList.remove('visible');
+            }
+        });
+        
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+        }
+        
+        function closeMobileMenu() {
+            document.getElementById('mobileMenu').classList.remove('active');
+        }
+        
+        // Scroll to top function
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Service cards hover effect
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                gsap.to(this, {
+                    scale: 1.03,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                gsap.to(this, {
+                    scale: 1,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
+            });
+        });
+        
+        // Form submission handling
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Create success message
+            const successMessage = document.createElement('div');
+            successMessage.innerHTML = `
+                <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(10, 25, 47, 0.95); padding: 2rem; border-radius: 10px; border: 2px solid var(--accent-gold); text-align: center; z-index: 2000; box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;">✓</div>
+                    <div style="color: var(--accent-gold); font-weight: bold; margin-bottom: 0.5rem;">Message Sent!</div>
+                    <div style="color: var(--text-light);">Thank you for contacting Luis Petroleum Services.</div>
+                </div>
+            `;
+            document.body.appendChild(successMessage);
+            
+            // Remove message after 3 seconds
+            setTimeout(() => {
+                successMessage.remove();
+            }, 3000);
+            
+            // Reset form
+            this.reset();
+        });
+    </script>
+</body>
+</html>
